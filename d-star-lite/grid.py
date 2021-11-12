@@ -101,9 +101,9 @@ class GridWorld(Graph):
                         # print(f'row[idy]={row[idy]}')
                         self.cells[idx-1][idy] = -1 if row[idy] == 'X' else 0
                         if row[idy] == 'R':
-                            s_start = f'x{idx}y{idy}'
+                            s_start = f'x{idx-1}y{idy}'
                         if row[idy] == 'G':
-                            s_goal = f'x{idx}y{idy}'
+                            s_goal = f'x{idx-1}y{idy}'
         # self.printGrid()
         return self.cells, s_start, s_goal
 

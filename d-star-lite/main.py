@@ -1,6 +1,6 @@
 import pygame
 from grid import GridWorld
-from utils import stateNameToCoords
+from utils import stateNameToCoords, parseDims
 from d_star_lite import initDStarLite, moveAndRescan
 import random
 
@@ -30,25 +30,15 @@ HEIGHT = 30
 # This sets the margin between each cell
 MARGIN = 1
 
-# Create a 2 dimensional array. A two dimensional
-# array is simply a list of lists.
-# grid = []
-# for row in range(10):
-#     # Add an empty array that will hold each cell
-#     # in this row
-#     grid.append([])
-#     for column in range(10):
-#         grid[row].append(0)  # Append a cell
 
-# # Set row 1, cell 5 to one. (Remember rows and
-# # column numbers start at zero.)
-# grid[1][5] = 1
+# path to design grid
+filep = "/home/erud1t3/Desktop/AA-final-project/testCaseGenerator/data/output.txt"
 
 # Initialize pygame
 pygame.init()
 
-X_DIM = 32
-Y_DIM = 32
+# X_DIM, Y_DIM = 32, 32
+X_DIM, Y_DIM = parseDims(filep) # reads dynamically the size of the grid
 VIEWING_RANGE = 10 # affect the ability of the algorithm to find it's path
 
 
@@ -66,8 +56,7 @@ done = False
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
 
-# path to design grid
-filep = "/home/erud1t3/Desktop/testCaseGenerator/data/output.txt"
+
 
 if __name__ == "__main__":
 
@@ -104,7 +93,7 @@ if __name__ == "__main__":
     )
 
     basicfont = pygame.font.SysFont('Comic Sans MS', 15)
-    continuous_run = True # to run without stopping
+    continuous_run = False # to run without stopping
     MAX_OBSTACLES = 10 # obstacles to be generated at random for a max number of 50 obtaacles
 
     # -------- Main Program Loop -----------

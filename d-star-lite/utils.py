@@ -12,22 +12,18 @@ def stateNameToCoords(name):
         int(name.split('x')[1].split('y')[1])
     ]
 
-# util function to display the path to the goal
-def displayPath():
-    pass
+def parseDims(filepath):
+    '''
+        read the dimension of the grid
+    '''
+    x_dim, y_dim = 0, 0 
+    with open(filepath) as F:
+        for line in F:
+            x_dim += 1
+            y_dim = (len(line) - 1) // 2
 
-
-# add obstacles to the grid
-def addObstacles():
-    pass
-
-
-
-# save output snapshots of grid
-def saveGrid():
-    pass 
-
-
-# save output snapshots of grid
-def profile():
-    pass
+    x_dim -= 2
+    y_dim -= 2
+    
+    print(x_dim, y_dim)
+    return x_dim, y_dim
