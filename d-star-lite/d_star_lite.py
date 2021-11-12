@@ -135,6 +135,10 @@ def moveAndRescan(graph, queue, s_current, scan_range, k_m):
     else:
         s_last = s_current
         s_new = nextInShortestPath(graph, s_current)
+        if not s_new:
+            # s_new = s_last # to return to previous spot and wait
+            print('No path to goal can be found :(((')
+            quit() # quit since the goal cannot be found
         new_coords = stateNameToCoords(s_new)
 
         if(graph.cells[new_coords[1]][new_coords[0]] == -1):  # just ran into new obstacle

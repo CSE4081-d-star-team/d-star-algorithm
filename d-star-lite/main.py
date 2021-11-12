@@ -104,7 +104,7 @@ if __name__ == "__main__":
     )
 
     basicfont = pygame.font.SysFont('Comic Sans MS', 15)
-    continuous_run = False # to run without stopping
+    continuous_run = True # to run without stopping
     MAX_OBSTACLES = 10 # obstacles to be generated at random for a max number of 50 obtaacles
 
     # -------- Main Program Loop -----------
@@ -124,6 +124,7 @@ if __name__ == "__main__":
                 pos_coords = stateNameToCoords(s_current)
                 # print('got pos coords: ', pos_coords)
 
+            '''adding obstacles'''
             # p = .33 of generating obstacles
             if random.choice([True, False, False]):
                 num_obstacles = random.randint(0, MAX_OBSTACLES)
@@ -132,6 +133,16 @@ if __name__ == "__main__":
                     col = random.randint(0, Y_DIM-1)
                     if(graph.cells[row][col] == 0):
                             graph.cells[row][col] = -1
+
+            '''removing obstacles'''
+            # p = 1/4 of removing obstacles
+            if random.choice([True, False, False, False]):
+                num_obstacles = random.randint(0, MAX_OBSTACLES)
+                for idx in range(num_obstacles):
+                    row = random.randint(0, X_DIM-1)
+                    col = random.randint(0, Y_DIM-1)
+                    if(graph.cells[row][col] == -1):
+                            graph.cells[row][col] = 0
 
         else:
             for event in pygame.event.get():  # User did something
@@ -221,7 +232,7 @@ if __name__ == "__main__":
         )
 
         # Limit to 60 frames per second
-        clock.tick(10)
+        clock.tick(5)
 
         # Go ahead and update the screen with what we've drawn.
         pygame.display.flip()
