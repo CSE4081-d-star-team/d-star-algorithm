@@ -43,7 +43,8 @@ def updateVertex(graph, queue, id, s_current, k_m):
 
 
 def computeShortestPath(graph, queue, s_start, k_m):
-    while (graph.graph[s_start].rhs != graph.graph[s_start].g) or (topKey(queue) < calculateKey(graph, s_start, s_start, k_m)):
+    while (graph.graph[s_start].rhs != graph.graph[s_start].g) or \
+        (topKey(queue) < calculateKey(graph, s_start, s_start, k_m)):
         # print(graph.graph[s_start])
         # print('topKey')
         # print(topKey(queue))

@@ -66,19 +66,22 @@ done = False
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
 
+# path to design grid
+filep = "/home/erud1t3/Desktop/testCaseGenerator/data/output.txt"
+
 if __name__ == "__main__":
 
     # generate graph for the grid world
-    graph = GridWorld(X_DIM, Y_DIM)
+    graph = GridWorld(X_DIM, Y_DIM, filepath=filep)
     # s_start = 'x1y2' # [1, 2]
 
     # generate starting point
-    s_start = f'x{random.randint(0, X_DIM)}y{random.randint(0, Y_DIM)}'
+    # s_start = f'x{random.randint(0, X_DIM)}y{random.randint(0, Y_DIM)}'
     # s_goal = 'x5y4'  # [5, 4]
 
     # generate ending point
-    s_goal = f'x{random.randint(0, X_DIM)}y{random.randint(0, Y_DIM)}'
-
+    # s_goal = f'x{random.randint(0, X_DIM)}y{random.randint(0, Y_DIM)}'
+    s_start, s_goal = graph.start, graph.goal
     goal_coords = stateNameToCoords(s_goal)
 
     graph.setStart(s_start)

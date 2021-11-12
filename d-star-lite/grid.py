@@ -52,7 +52,7 @@ class Graph:
 
 
 class GridWorld(Graph):
-    def __init__(self, x_dim, y_dim, connect8=True):
+    def __init__(self, x_dim, y_dim, connect8=True, filepath=None):
         self.x_dim = x_dim
         self.y_dim = y_dim
         # First make an element for each row (height of grid)
@@ -64,7 +64,14 @@ class GridWorld(Graph):
         self.connect8 = connect8
         self.graph = {}
 
-        self.generateGraphFromGrid()
+        if filepath:
+            self.cells, s_start, s_goal = self.parseGrid(filepath)
+           
+            self.printGrid()
+            self.generateGraphFromGrid()
+            self.setGoal(s_goal)
+            self.setStart(s_start)
+
         # self.printGrid()
 
     def __str__(self):
@@ -83,6 +90,24 @@ class GridWorld(Graph):
         for row in self.cells:
             print(row)
 
+    def parseGrid(self, input_file):
+        '''parse text file into grid '''
+        print('file', input_file)
+        with open(input_file) as in_file:
+            for idx, line in enumerate(in_file):
+                row = [line[i] for i in range(0, len(line.strip()), 2) if line[i] != 'W']
+                if row:
+                    for idy in range(self.y_dim - 1):
+                        # print(f'row[idy]={row[idy]}')
+                        self.cells[idx-1][idy] = -1 if row[idy] == 'X' else 0
+                        if row[idy] == 'R':
+                            s_start = f'x{idx}y{idy}'
+                        if row[idy] == 'G':
+                            s_goal = f'x{idx}y{idy}'
+        # self.printGrid()
+        return self.cells, s_start, s_goal
+
+
     def printGValues(self):
         for j in range(self.y_dim):
             str_msg = ""
@@ -97,6 +122,7 @@ class GridWorld(Graph):
 
     def generateGraphFromGrid(self):
         edge = 1
+        # print(f'dimensions of cells= {len(self.cells)} {[len(x) for x in self.cells]}')
         for i in range(len(self.cells)):
             row = self.cells[i]
             for j in range(len(row)):
