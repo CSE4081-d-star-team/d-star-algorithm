@@ -91,8 +91,7 @@ def scanForObstacles(graph, queue, s_current, scan_range, k_m):
     if scan_range >= 1:
         for neighbor in graph.graph[s_current].children:
             neighbor_coords = stateNameToCoords(neighbor)
-            states_to_update[neighbor] = graph.cells[neighbor_coords[1]
-                                                     ][neighbor_coords[0]]
+            states_to_update[neighbor] = graph.cells[neighbor_coords[1]][neighbor_coords[0]]
         range_checked = 1
     # print(states_to_update)
 
@@ -103,8 +102,7 @@ def scanForObstacles(graph, queue, s_current, scan_range, k_m):
             for neighbor in graph.graph[state].children:
                 if neighbor not in new_set:
                     neighbor_coords = stateNameToCoords(neighbor)
-                    new_set[neighbor] = graph.cells[neighbor_coords[1]
-                                                    ][neighbor_coords[0]]
+                    new_set[neighbor] = graph.cells[neighbor_coords[1]][neighbor_coords[0]]
         range_checked += 1
         states_to_update = new_set
 
