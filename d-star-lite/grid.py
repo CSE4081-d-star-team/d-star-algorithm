@@ -52,7 +52,7 @@ class Graph:
 
 
 class GridWorld(Graph):
-    def __init__(self, x_dim, y_dim, connect8=True, filepath=None):
+    def __init__(self, x_dim, y_dim, connect8=False, filepath=None):
         self.x_dim = x_dim
         self.y_dim = y_dim
         # First make an element for each row (height of grid)

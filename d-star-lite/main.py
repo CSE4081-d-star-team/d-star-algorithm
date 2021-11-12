@@ -32,7 +32,7 @@ MARGIN = 1
 
 
 # path to design grid
-filep = "/home/erud1t3/Desktop/AA-final-project/testCaseGenerator/data/output.txt"
+filep = "/home/erud1t3/Desktop/AA-final-project/testCaseGenerator/data/output2.txt"
 
 # Initialize pygame
 pygame.init()
