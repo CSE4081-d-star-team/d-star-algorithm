@@ -24,8 +24,8 @@ colors = {
 }
 
 # This sets the WIDTH and HEIGHT of each grid location
-WIDTH = 25
-HEIGHT = 25
+WIDTH = 30
+HEIGHT = 30
 
 # This sets the margin between each cell
 MARGIN = 1
@@ -49,7 +49,7 @@ pygame.init()
 
 X_DIM = 32
 Y_DIM = 32
-VIEWING_RANGE = 6 # affect the ability of the algorithm to find it's path
+VIEWING_RANGE = 10 # affect the ability of the algorithm to find it's path
 
 
 # Set the HEIGHT and WIDTH of the screen

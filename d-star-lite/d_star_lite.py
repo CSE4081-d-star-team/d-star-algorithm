@@ -12,16 +12,16 @@ def topKey(queue):
         return (float('inf'), float('inf'))
 
 
-def heuristic_from_s(graph, id, s):
+def heuristic_from_s(id, s):
     x_distance = abs(int(id.split('x')[1][0]) - int(s.split('x')[1][0]))
     y_distance = abs(int(id.split('y')[1][0]) - int(s.split('y')[1][0]))
     return max(x_distance, y_distance)
 
 
-def calculateKey(graph, id, s_current, k_m):
+def calculateKey(grid, id, s_current, k_m):
     return (
-        min(graph.graph[id].g, graph.graph[id].rhs) + heuristic_from_s(graph, id, s_current) + k_m, 
-        min(graph.graph[id].g, graph.graph[id].rhs)
+        min(grid.graph[id].g, grid.graph[id].rhs) + heuristic_from_s(id, s_current) + k_m, 
+        min(grid.graph[id].g, grid.graph[id].rhs)
     )
 
 
@@ -142,7 +142,7 @@ def moveAndRescan(graph, queue, s_current, scan_range, k_m):
 
         results = scanForObstacles(graph, queue, s_new, scan_range, k_m)
         # print(graph)
-        k_m += heuristic_from_s(graph, s_last, s_new)
+        k_m += heuristic_from_s(s_last, s_new)
         computeShortestPath(graph, queue, s_current, k_m)
 
         return s_new, k_m
