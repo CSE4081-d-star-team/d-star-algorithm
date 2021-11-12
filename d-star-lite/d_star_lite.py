@@ -20,8 +20,8 @@ def heuristic_from_s(id, s):
 
 def calculateKey(grid, id, s_current, k_m):
     return (
-        min(grid.graph[id].g, grid.graph[id].rhs) + heuristic_from_s(id, s_current) + k_m, 
-        min(grid.graph[id].g, grid.graph[id].rhs)
+        min(grid.graph[id].g, grid.graph[id].rhs) + heuristic_from_s(id, s_current) + k_m, # key 1 
+        min(grid.graph[id].g, grid.graph[id].rhs) # key 2
     )
 
 

@@ -163,6 +163,8 @@ if __name__ == "__main__":
                     # draw an obstacle onto the grid
                     if(graph.cells[row][column] == 0):
                         graph.cells[row][column] = -1
+                    elif(graph.cells[row][column] == -1):
+                        graph.cells[row][column] = 0
 
         # Set the screen background
         screen.fill(BLACK)
@@ -221,7 +223,7 @@ if __name__ == "__main__":
         )
 
         # Limit to 60 frames per second
-        clock.tick(5)
+        clock.tick(100)
 
         # Go ahead and update the screen with what we've drawn.
         pygame.display.flip()
