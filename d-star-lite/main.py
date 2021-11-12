@@ -104,39 +104,65 @@ if __name__ == "__main__":
     )
 
     basicfont = pygame.font.SysFont('Comic Sans MS', 15)
+    continuous_run = False # to run without stopping
+    MAX_OBSTACLES = 10 # obstacles to be generated at random for a max number of 50 obtaacles
 
     # -------- Main Program Loop -----------
-    while not done:
-        for event in pygame.event.get():  # User did something
-            if event.type == pygame.QUIT:  # If user clicked close
-                done = True  # Flag that we are done so we exit this loop
-            elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                print('space bar! call next action')
-
-                # move the agent with new position to go to and new k_m | actual d-star lite pathfinding
-                s_new, k_m = moveAndRescan(graph, queue, s_current, VIEWING_RANGE, k_m)  
+    while not done: 
+        if continuous_run: 
+            # move the agent with new position to go to and new k_m | actual d-star lite pathfinding
+            s_new, k_m = moveAndRescan(graph, queue, s_current, VIEWING_RANGE, k_m)  
 
 
-                if s_new == 'goal':
-                    print('Goal Reached!')
-                    done = True
-                else:
-                    print('setting s_current to ', s_new)
-                    # if the goal is not reached, updated current to new
-                    s_current = s_new
-                    pos_coords = stateNameToCoords(s_current)
-                    # print('got pos coords: ', pos_coords)
+            if s_new == 'goal':
+                print('Goal Reached!')
+                done = True
+            else:
+                print('setting s_current to ', s_new)
+                # if the goal is not reached, updated current to new
+                s_current = s_new
+                pos_coords = stateNameToCoords(s_current)
+                # print('got pos coords: ', pos_coords)
 
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                # User clicks the mouse. Get the position
-                pos = pygame.mouse.get_pos()
-                # Change the x/y screen coordinates to grid coordinates
-                column = pos[0] // (WIDTH + MARGIN)
-                row = pos[1] // (HEIGHT + MARGIN)
-                # Set that location to one
-                # draw an obstacle onto the grid
-                if(graph.cells[row][column] == 0):
-                    graph.cells[row][column] = -1
+            # p = .33 of generating obstacles
+            if random.choice([True, False, False]):
+                num_obstacles = random.randint(0, MAX_OBSTACLES)
+                for idx in range(num_obstacles):
+                    row = random.randint(0, X_DIM-1)
+                    col = random.randint(0, Y_DIM-1)
+                    if(graph.cells[row][col] == 0):
+                            graph.cells[row][col] = -1
+
+        else:
+            for event in pygame.event.get():  # User did something
+                if event.type == pygame.QUIT:  # If user clicked close
+                    done = True  # Flag that we are done so we exit this loop
+                elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                    print('space bar! call next action')
+
+                    # move the agent with new position to go to and new k_m | actual d-star lite pathfinding
+                    s_new, k_m = moveAndRescan(graph, queue, s_current, VIEWING_RANGE, k_m)  
+
+                    if s_new == 'goal':
+                        print('Goal Reached!')
+                        done = True
+                    else:
+                        print('setting s_current to ', s_new)
+                        # if the goal is not reached, updated current to new
+                        s_current = s_new
+                        pos_coords = stateNameToCoords(s_current)
+                        # print('got pos coords: ', pos_coords)
+
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    # User clicks the mouse. Get the position
+                    pos = pygame.mouse.get_pos()
+                    # Change the x/y screen coordinates to grid coordinates
+                    column = pos[0] // (WIDTH + MARGIN)
+                    row = pos[1] // (HEIGHT + MARGIN)
+                    # Set that location to one
+                    # draw an obstacle onto the grid
+                    if(graph.cells[row][column] == 0):
+                        graph.cells[row][column] = -1
 
         # Set the screen background
         screen.fill(BLACK)
@@ -195,7 +221,7 @@ if __name__ == "__main__":
         )
 
         # Limit to 60 frames per second
-        clock.tick(20)
+        clock.tick(10)
 
         # Go ahead and update the screen with what we've drawn.
         pygame.display.flip()
