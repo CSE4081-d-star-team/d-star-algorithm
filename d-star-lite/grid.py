@@ -15,7 +15,7 @@ class Node:
         self.rhs = float('inf')
 
     def __str__(self):
-        return 'Node: ' + self.id + ' g: ' + str(self.g) + ' rhs: ' + str(self.rhs)
+        return '' + self.id + ' g: ' + str(self.g) + ' rhs: ' + str(self.rhs)
 
     def __repr__(self):
         return self.__str__()
@@ -23,35 +23,7 @@ class Node:
     def update_parents(self, parents):
         self.parents = parents
 
-
-class Graph:
-    def __init__(self):
-        self.graph = {}
-
-    def __str__(self):
-        msg = 'Graph:'
-        for i in self.graph:
-            msg += '\n  node: ' + i + ' g: ' + \
-                str(self.graph[i].g) + ' rhs: ' + str(self.graph[i].rhs)
-        return msg
-
-    def __repr__(self):
-        return self.__str__()
-
-    def setStart(self, id):
-        if(self.graph[id]):
-            self.start = id
-        else:
-            raise ValueError('start id not in graph')
-
-    def setGoal(self, id):
-        if(self.graph[id]):
-            self.goal = id
-        else:
-            raise ValueError('goal id not in graph')
-
-
-class GridWorld(Graph):
+class GridWorld():
     def __init__(self, x_dim, y_dim, connect8=False, filepath=None):
         self.x_dim = x_dim
         self.y_dim = y_dim
@@ -66,13 +38,10 @@ class GridWorld(Graph):
 
         if filepath:
             self.cells, s_start, s_goal = self.parseGrid(filepath)
-           
-            self.printGrid()
+            #self.printGrid()
             self.generateGraphFromGrid()
             self.setGoal(s_goal)
             self.setStart(s_start)
-
-        # self.printGrid()
 
     def __str__(self):
         msg = 'Graph:'
@@ -104,9 +73,19 @@ class GridWorld(Graph):
                             s_start = f'x{idx-1}y{idy}'
                         if row[idy] == 'G':
                             s_goal = f'x{idx-1}y{idy}'
-        # self.printGrid()
         return self.cells, s_start, s_goal
 
+    def setStart(self, id):
+        if(self.graph[id]):
+            self.start = id
+        else:
+            raise ValueError('start id not in graph')
+
+    def setGoal(self, id):
+        if(self.graph[id]):
+            self.goal = id
+        else:
+            raise ValueError('goal id not in graph')
 
     def printGValues(self):
         for j in range(self.y_dim):
