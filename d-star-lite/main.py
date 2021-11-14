@@ -2,9 +2,10 @@ import pygame
 from grid import GridWorld
 from utils import stateNameToCoords, parseDims
 from d_star_lite import initDStarLite, moveAndRescan
+from brute_force import BruteForce
 import random
 
-# Define some colors
+# Define some colors 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
@@ -32,7 +33,7 @@ MARGIN = 1
 
 
 # path to design grid
-filep = "/home/erud1t3/Desktop/AA-final-project/testCaseGenerator/data/output2.txt"
+filep = "/home/tony/Desktop/testCaseGenerator/data/output.txt"
 
 # Initialize pygame
 pygame.init()
@@ -100,8 +101,7 @@ if __name__ == "__main__":
     while not done: 
         if continuous_run: 
             # move the agent with new position to go to and new k_m | actual d-star lite pathfinding
-            s_new, k_m = moveAndRescan(graph, queue, s_current, VIEWING_RANGE, k_m)  
-
+            s_new, k_m = moveAndRescan(graph, queue, s_current, VIEWING_RANGE, k_m)
 
             if s_new == 'goal':
                 print('Goal Reached!')
@@ -142,7 +142,7 @@ if __name__ == "__main__":
 
                     # move the agent with new position to go to and new k_m | actual d-star lite pathfinding
                     s_new, k_m = moveAndRescan(graph, queue, s_current, VIEWING_RANGE, k_m)  
-
+                    BruteForce.findPath(graph, s_current, graph.goal)
                     if s_new == 'goal':
                         print('Goal Reached!')
                         done = True
