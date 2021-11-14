@@ -1,13 +1,135 @@
+import copy
+import time
+
 from grid import GridWorld, Node
 
 class BruteForce:
-    #BFS?
+    def __init__(self):
+        self.graph = {}
+        self.cell = None
+        self.temp_graph = None
+        self.list = []
+
     #Coordination - key = f'x{idx}y{idy}' : value = Node
-    def findPath(grid : GridWorld, start : Node, end : Node):
-        # connects the current row then connects current row to previous row
-        for y in range(grid.y_dim):
-            for x in range(grid.x_dim):
-                pass
-                print(grid.cells[y][x], end = '\n')
-                print(str(grid.graph[f'x{x}y{y}']) + ", ", end = '\n')
-            print("")
+    #new list has different reference with original grid
+    # but shares the same cell information for obstacles
+    def find_path(self, grid : GridWorld):
+        #copies only the value
+        self.temp_grid = copy.deepcopy(grid)
+        start : Node = self.temp_grid.graph[self.temp_grid.start]
+
+        self.list.append(start)
+        distance = 0
+        while (len(self.list) != 0):
+            #Result contains the distance to the goal
+            result = self.breadth_first_search()
+            if result != None:
+                break
+        distance = 0
+               
+        while (result != None):
+            print("Taking Previous " + str(result.id))
+            result = result.previous
+            distance += 1
+            time.sleep(1)
+        
+        
+        print(distance)
+
+    #Look for the goal using BFS
+    def breadth_first_search(self):        
+        current_node : Node = self.list.pop(0)
+        x, y = self.get_cooridnation(current_node)
+        
+        if current_node.id == self.temp_grid.goal:   #Goal
+            current_node.visited = True
+            return current_node
+        elif current_node.visited:                   #Visited
+            return None
+        elif self.temp_grid.cells[y][x] == -1:       #Obstaccles
+            current_node.visited = True
+            return None
+
+        current_node.visited = True
+        #Recursive case
+        next_node = self.go_up(x, y, current_node)        #UP
+        if next_node != None and not next_node.visited:
+            time.sleep(1)
+            print(str(current_node.id) + " - Going up")
+            self.list.append(next_node)
+
+        next_node = self.go_down(x, y, current_node)      #DOWN
+        if next_node != None and not next_node.visited:
+            time.sleep(1)
+            print(str(current_node.id) + " - Going down")
+            self.list.append(next_node)
+
+        next_node = self.go_left(x, y, current_node)      #LEFT
+        if next_node != None:
+            time.sleep(1)
+            print(str(current_node.id) + " - Going left")
+            self.list.append(next_node)
+
+        next_node = self.go_right(x, y, current_node)     #RIGHT
+        if next_node != None and not next_node.visited:
+            time.sleep(1)
+            print(str(current_node.id) + " - Going right")
+            self.list.append(next_node)
+
+        return None
+
+    def get_cooridnation(self, node : Node):
+        id = node.id
+        id = id.replace("x", " ")
+        id = id.replace("y", " ")
+        list = id.split(' ')
+        list.remove('')
+        current_x = int(list[0])
+        current_y = int(list[1])
+        return current_x, current_y
+
+    def get_dic_key(self, x, y):
+        return f'x{x}y{y}'
+
+    def to_node(self, coord : str):
+        return self.temp_grid.graph[coord]
+
+    def go_up(self, x, y, current_node):
+        if y == 0:
+            return None
+        else:
+            temp_node : Node = self.to_node(f'x{x}y{y - 1}')
+            if temp_node != temp_node.visited:
+                temp_node.previous = current_node
+                return temp_node
+        return None
+
+    def go_down(self, x, y, current_node):
+        if y == self.temp_grid.y_dim - 1:
+            return None
+        else:
+            temp_node : Node = self.to_node(f'x{x}y{y + 1}')
+            if temp_node != temp_node.visited:
+                temp_node.previous = current_node
+                return temp_node
+        return None
+    
+    def go_left(self, x, y, current_node):
+        if x == 0:
+            return None
+        else:
+            temp_node : Node = self.to_node(f'x{x - 1}y{y}')
+            if temp_node != temp_node.visited:
+                temp_node.previous = current_node
+                return temp_node
+        return None
+    
+    def go_right(self, x, y, current_node):
+        if x == self.temp_grid.x_dim - 1:
+            return None
+        else:
+            temp_node : Node = self.to_node(f'x{x + 1}y{y}')
+            if temp_node != temp_node.visited:
+                temp_node.previous = current_node
+                return temp_node
+        return None

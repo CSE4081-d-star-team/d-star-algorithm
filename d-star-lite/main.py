@@ -57,8 +57,6 @@ done = False
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
 
-
-
 if __name__ == "__main__":
 
     # generate graph for the grid world
@@ -142,7 +140,10 @@ if __name__ == "__main__":
 
                     # move the agent with new position to go to and new k_m | actual d-star lite pathfinding
                     s_new, k_m = moveAndRescan(graph, queue, s_current, VIEWING_RANGE, k_m)  
-                    BruteForce.findPath(graph, s_current, graph.goal)
+                    
+                    brute = BruteForce()
+                    #brute.find_path(graph)
+                    
                     if s_new == 'goal':
                         print('Goal Reached!')
                         done = True

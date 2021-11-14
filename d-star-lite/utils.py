@@ -20,7 +20,7 @@ def parseDims(filepath):
     with open(filepath) as F:
         for line in F:
             x_dim += 1
-            y_dim = (len(line) - 1) // 2
+            y_dim = len(line) // 2
 
     x_dim -= 2
     y_dim -= 2

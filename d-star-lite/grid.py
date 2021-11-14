@@ -1,6 +1,6 @@
 class Node:
     def __init__(self, id):
-        self.id = id
+        self.id : str = id
         # dictionary of parent node ID's
         # key = id of parent
         # value = (edge cost,)
@@ -13,6 +13,11 @@ class Node:
         self.g = float('inf')
         # rhs value
         self.rhs = float('inf')
+        #Previous node when traverse
+        self.previous : Node = None
+
+        # for BFS search
+        self.visited = False
 
     def __str__(self):
         return '' + self.id + ' g: ' + str(self.g) + ' rhs: ' + str(self.rhs)
@@ -32,9 +37,11 @@ class GridWorld():
         # Go through each element and replace with row (width of grid)
         for i in range(y_dim):
             self.cells[i] = [0] * x_dim
-        # will this be an 8-connected graph or 4-connected?
+
         self.connect8 = connect8
         self.graph = {}
+        self.goal : str = None
+        self.start : str = None
 
         if filepath:
             self.cells, s_start, s_goal = self.parseGrid(filepath)
