@@ -13,25 +13,25 @@ class BruteForce:
     #Coordination - key = f'x{idx}y{idy}' : value = Node
     #new list has different reference with original grid
     # but shares the same cell information for obstacles
-    def find_path(self, grid : GridWorld):
+    def find_path(self, grid : GridWorld, current_pos : str):
         #copies only the value
         self.temp_grid = copy.deepcopy(grid)
-        start : Node = self.temp_grid.graph[self.temp_grid.start]
+        current_node : Node = self.temp_grid.graph[current_pos]
 
-        self.list.append(start)
+        self.list.append(current_node)
         distance = 0
         while (len(self.list) != 0):
-            #Result contains the distance to the goal
-            result = self.breadth_first_search()
+            result : Node = self.breadth_first_search()
             if result != None:
                 break
         distance = 0
-               
+
         while (result != None):
-            print("Taking Previous " + str(result.id))
-            result = result.previous
+            print("Taking Previous " + str(result.id))    
             distance += 1
-            time.sleep(1)
+            if (result.id == current_pos):
+                break
+            result = result.previous
         
         
         print(distance)
@@ -54,25 +54,21 @@ class BruteForce:
         #Recursive case
         next_node = self.go_up(x, y, current_node)        #UP
         if next_node != None and not next_node.visited:
-            time.sleep(1)
             print(str(current_node.id) + " - Going up")
             self.list.append(next_node)
 
         next_node = self.go_down(x, y, current_node)      #DOWN
         if next_node != None and not next_node.visited:
-            time.sleep(1)
             print(str(current_node.id) + " - Going down")
             self.list.append(next_node)
 
         next_node = self.go_left(x, y, current_node)      #LEFT
         if next_node != None:
-            time.sleep(1)
             print(str(current_node.id) + " - Going left")
             self.list.append(next_node)
 
         next_node = self.go_right(x, y, current_node)     #RIGHT
         if next_node != None and not next_node.visited:
-            time.sleep(1)
             print(str(current_node.id) + " - Going right")
             self.list.append(next_node)
 
@@ -99,37 +95,33 @@ class BruteForce:
             return None
         else:
             temp_node : Node = self.to_node(f'x{x}y{y - 1}')
-            if temp_node != temp_node.visited:
+            if temp_node.previous == None:
                 temp_node.previous = current_node
-                return temp_node
-        return None
+            return temp_node
 
     def go_down(self, x, y, current_node):
         if y == self.temp_grid.y_dim - 1:
             return None
         else:
             temp_node : Node = self.to_node(f'x{x}y{y + 1}')
-            if temp_node != temp_node.visited:
+            if temp_node.previous == None:
                 temp_node.previous = current_node
-                return temp_node
-        return None
+            return temp_node
     
     def go_left(self, x, y, current_node):
         if x == 0:
             return None
         else:
             temp_node : Node = self.to_node(f'x{x - 1}y{y}')
-            if temp_node != temp_node.visited:
+            if temp_node.previous == None:
                 temp_node.previous = current_node
-                return temp_node
-        return None
+            return temp_node
     
     def go_right(self, x, y, current_node):
         if x == self.temp_grid.x_dim - 1:
             return None
         else:
             temp_node : Node = self.to_node(f'x{x + 1}y{y}')
-            if temp_node != temp_node.visited:
+            if temp_node.previous == None:
                 temp_node.previous = current_node
-                return temp_node
-        return None
+            return temp_node
