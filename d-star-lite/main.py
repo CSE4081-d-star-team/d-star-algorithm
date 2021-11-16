@@ -141,13 +141,12 @@ if __name__ == "__main__":
                     # move the agent with new position to go to and new k_m | actual d-star lite pathfinding
                     s_new, k_m = moveAndRescan(graph, queue, s_current, VIEWING_RANGE, k_m)  
                     
-                    brute = BruteForce()
-                    #brute.find_path(graph)
-                    
                     if s_new == 'goal':
                         print('Goal Reached!')
                         done = True
                     else:
+                        brute = BruteForce()
+                        brute.find_path(graph, s_new)
                         print('setting s_current to ', s_new)
                         # if the goal is not reached, updated current to new
                         s_current = s_new
