@@ -25,8 +25,24 @@ def parseDims(filepath):
     print(x_dim, y_dim)
     return x_dim, y_dim
 
-def add_reroute_obstacle(graph, s_next):
-    '''Add a redirect obstacle by blocking the next spot'''
+def add_reroute_obstacle(graph, s_current, s_next):
+    '''
+        Add a redirect obstacle by blocking the next spot
+        works specifically for maps of this type
+        W W W W W W W W W W W W 
+        W                     W 
+        W   R X               W 
+        W   X X               W 
+        W                     W 
+        W                     W 
+        W                     W 
+        W                     W 
+        W               X X   W 
+        W               X G   W 
+        W                     W 
+        W W W W W W W W W W W W 
+    
+    '''
     #TODO: Fix the redirect
     success = False
 
