@@ -1,7 +1,7 @@
 import pygame
 from grid import GridWorld
 from utils import stateNameToCoords, parseDims
-from d_star_lite import initDStarLite, moveAndRescan
+from d_star_lite import init_dstarlite, move_and_rescan
 from brute_force import BruteForce
 import random
 
@@ -78,7 +78,7 @@ if __name__ == "__main__":
     s_last = s_start
     queue = []
 
-    graph, queue, k_m = initDStarLite(graph, queue, s_start, s_goal, k_m)
+    graph, queue, k_m = init_dstarlite(graph, queue, s_start, s_goal, k_m)
 
     s_current = s_start
     pos_coords = stateNameToCoords(s_current)
@@ -99,7 +99,7 @@ if __name__ == "__main__":
     while not done: 
         if continuous_run: 
             # move the agent with new position to go to and new k_m | actual d-star lite pathfinding
-            s_new, k_m = moveAndRescan(graph, queue, s_current, VIEWING_RANGE, k_m)
+            s_new, k_m = move_and_rescan(graph, queue, s_current, VIEWING_RANGE, k_m)
 
             if s_new == 'goal':
                 print('Goal Reached!')
@@ -139,7 +139,7 @@ if __name__ == "__main__":
                     print('space bar! call next action')
 
                     # move the agent with new position to go to and new k_m | actual d-star lite pathfinding
-                    s_new, k_m = moveAndRescan(graph, queue, s_current, VIEWING_RANGE, k_m)  
+                    s_new, k_m = move_and_rescan(graph, queue, s_current, VIEWING_RANGE, k_m)  
                     
                     if s_new == 'goal':
                         print('Goal Reached!')

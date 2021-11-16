@@ -2,7 +2,7 @@ import heapq
 from utils import stateNameToCoords
 
 
-def topKey(queue):
+def top_key(queue):
     queue.sort()
     # print(queue)
     if len(queue) > 0:
@@ -18,14 +18,14 @@ def heuristic_from_s(id, s):
     return max(x_distance, y_distance)
 
 
-def calculateKey(grid, id, s_current, k_m):
+def calculate_key(grid, id, s_current, k_m):
     return (
         min(grid.graph[id].g, grid.graph[id].rhs) + heuristic_from_s(id, s_current) + k_m, # key 1 
         min(grid.graph[id].g, grid.graph[id].rhs) # key 2
     )
 
 
-def updateVertex(graph, queue, id, s_current, k_m):
+def update_vertex(graph, queue, id, s_current, k_m):
     s_goal = graph.goal
     if id != s_goal:
         min_rhs = float('inf')
@@ -39,34 +39,30 @@ def updateVertex(graph, queue, id, s_current, k_m):
             raise ValueError('more than one ' + id + ' in the queue!')
         queue.remove(id_in_queue[0])
     if graph.graph[id].rhs != graph.graph[id].g:
-        heapq.heappush(queue, calculateKey(graph, id, s_current, k_m) + (id,))
+        heapq.heappush(queue, calculate_key(graph, id, s_current, k_m) + (id,))
 
 
-def computeShortestPath(graph, queue, s_start, k_m):
+def compute_shortest_path(graph, queue, s_start, k_m):
     while (graph.graph[s_start].rhs != graph.graph[s_start].g) or \
-        (topKey(queue) < calculateKey(graph, s_start, s_start, k_m)):
-        # print(graph.graph[s_start])
-        # print('topKey')
-        # print(topKey(queue))
-        # print('calculateKey')
-        # print(calculateKey(graph, s_start, 0))
-        k_old = topKey(queue)
+        (top_key(queue) < calculate_key(graph, s_start, s_start, k_m)):
+       
+        k_old = top_key(queue)
         u = heapq.heappop(queue)[2]
-        if k_old < calculateKey(graph, u, s_start, k_m):
-            heapq.heappush(queue, calculateKey(graph, u, s_start, k_m) + (u,))
+        if k_old < calculate_key(graph, u, s_start, k_m):
+            heapq.heappush(queue, calculate_key(graph, u, s_start, k_m) + (u,))
         elif graph.graph[u].g > graph.graph[u].rhs:
             graph.graph[u].g = graph.graph[u].rhs
             for i in graph.graph[u].children:
-                updateVertex(graph, queue, i, s_start, k_m)
+                update_vertex(graph, queue, i, s_start, k_m)
         else:
             graph.graph[u].g = float('inf')
-            updateVertex(graph, queue, u, s_start, k_m)
+            update_vertex(graph, queue, u, s_start, k_m)
             for i in graph.graph[u].children:
-                updateVertex(graph, queue, i, s_start, k_m)
+                update_vertex(graph, queue, i, s_start, k_m)
         # graph.printGValues()
 
 
-def nextInShortestPath(graph, s_current):
+def next_in_shortest_path(graph, s_current):
     min_rhs = float('inf')
     s_next = None
     if graph.graph[s_current].rhs == float('inf'):
@@ -85,7 +81,7 @@ def nextInShortestPath(graph, s_current):
             raise ValueError('could not find child for transition!')
 
 
-def scanForObstacles(graph, queue, s_current, scan_range, k_m):
+def scan_obstacles(graph, queue, s_current, scan_range, k_m):
     states_to_update = {}
     range_checked = 0
     if scan_range >= 1:
@@ -117,7 +113,7 @@ def scanForObstacles(graph, queue, s_current, scan_range, k_m):
                     graph.cells[neighbor_coords[1]][neighbor_coords[0]] = -2
                     graph.graph[neighbor].children[state] = float('inf')
                     graph.graph[state].children[neighbor] = float('inf')
-                    updateVertex(graph, queue, state, s_current, k_m)
+                    update_vertex(graph, queue, state, s_current, k_m)
                     new_obstacle = True
         # elif states_to_update[state] == 0: #cell without obstacle
             # for neighbor in graph.graph[state].children:
@@ -127,12 +123,12 @@ def scanForObstacles(graph, queue, s_current, scan_range, k_m):
     return new_obstacle
 
 
-def moveAndRescan(graph, queue, s_current, scan_range, k_m):
+def move_and_rescan(graph, queue, s_current, scan_range, k_m):
     if(s_current == graph.goal):
         return 'goal', k_m
     else:
         s_last = s_current
-        s_new = nextInShortestPath(graph, s_current)
+        s_new = next_in_shortest_path(graph, s_current)
         if not s_new:
             # s_new = s_last # to return to previous spot and wait
             print('No path to goal can be found :(((')
@@ -142,20 +138,20 @@ def moveAndRescan(graph, queue, s_current, scan_range, k_m):
         if(graph.cells[new_coords[1]][new_coords[0]] == -1):  # just ran into new obstacle
             s_new = s_current  # need to hold tight and scan/replan first
 
-        results = scanForObstacles(graph, queue, s_new, scan_range, k_m)
+        results = scan_obstacles(graph, queue, s_new, scan_range, k_m)
         # print(graph)
         k_m += heuristic_from_s(s_last, s_new)
-        computeShortestPath(graph, queue, s_current, k_m)
+        compute_shortest_path(graph, queue, s_current, k_m)
 
         return s_new, k_m
 
 
-def initDStarLite(graph, queue, s_start, s_goal, k_m):
+def init_dstarlite(graph, queue, s_start, s_goal, k_m):
     graph.graph[s_goal].rhs = 0
     heapq.heappush(
         queue, 
-        calculateKey(graph, s_goal, s_start, k_m) + (s_goal,)
+        calculate_key(graph, s_goal, s_start, k_m) + (s_goal,)
     )
-    computeShortestPath(graph, queue, s_start, k_m)
+    compute_shortest_path(graph, queue, s_start, k_m)
 
     return (graph, queue, k_m)
