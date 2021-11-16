@@ -25,7 +25,7 @@ def parseDims(filepath):
     print(x_dim, y_dim)
     return x_dim, y_dim
 
-def add_reroute_obstacle(graph, s_current, s_next):
+def add_reroute_obstacle(graph, s_current):
     '''
         Add a redirect obstacle by blocking the next spot
         works specifically for maps of this type
@@ -44,17 +44,21 @@ def add_reroute_obstacle(graph, s_current, s_next):
     
     '''
     #TODO: Fix the redirect
-    success = False
+    success = 0
 
-    if s_next != 'goal':
+    if s_current != 'goal':
         # print(f's_new={s_next}')
-        col, row = stateNameToCoords(s_next)
+        col, row = stateNameToCoords(s_current)
         
-        if(graph.cells[row + 1][col] == 0):
-            graph.cells[row + 1][col] = -1
-            success = True
+        if(graph.cells[row + 2][col] == 0):
+            graph.cells[row + 2][col] = -1
+            success += 1
+
+        if(graph.cells[row][col + 2] == 0):
+            graph.cells[row][col + 2] = -1
+            success += 1
 
         # true if obstacle was added, false if
         #  no obstacles could have been added
-    return success 
+    return (success > 0)
     

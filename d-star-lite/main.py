@@ -33,7 +33,7 @@ MARGIN = 1
 
 
 # path to design grid
-filep = "C:\\Users\\the_3\\Desktop\\AA\\d-star-algorithm\\d-star-lite\\data\\grid10.txt"
+filep = "C:\\Users\\the_3\\Desktop\\AA\\d-star-algorithm\\d-star-lite\\data\\grid30.txt"
 
 # Initialize pygame
 pygame.init()
@@ -92,7 +92,7 @@ if __name__ == "__main__":
     )
 
     basicfont = pygame.font.SysFont('Comic Sans MS', 15)
-    continuous_run = False # to run without stopping
+    continuous_run = True # to run without stopping
     num_reroutes = min(X_DIM // 5, 5 + 1)
     rem_obstacles = num_reroutes
 
@@ -114,7 +114,7 @@ if __name__ == "__main__":
 
             '''adding obstacles'''
             if rem_obstacles >= 0:
-                is_success = add_reroute_obstacle(graph, s_new)
+                is_success = add_reroute_obstacle(graph, s_current)
                 if(is_success): 
                     print(f'{num_reroutes - rem_obstacles} reroute executed so far')
                     rem_obstacles -= 1
