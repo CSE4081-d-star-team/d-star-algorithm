@@ -9,10 +9,10 @@ from brute_force import BruteForce
 
 #Testing parameters
 MAX_TRIALS = 6
-MAX_REROUTES = 9 # 0-9
+MAX_REROUTES = 5 # 0-9
 MAX_GRIDSIZE = 20
 MIN_GRIDSIZE = 5
-STEP = 5
+STEP = 4
 
 
 def main(gridpath, num_reroutes):
@@ -80,7 +80,7 @@ if __name__ == "__main__":
         filepath = path + f'\\grid{gridsize}.txt'
         print(f'grid of size {gridsize} at {filepath}')
 
-        for num_reroute in range(MAX_REROUTES + 1):
+        for num_reroute in range(min(gridsize // 5, MAX_REROUTES + 1)):
             print(f'Executing {num_reroute} obstacle caused re-routes')
 
             for trial in range(MAX_TRIALS + 1):

@@ -27,14 +27,15 @@ def parseDims(filepath):
 
 def add_reroute_obstacle(graph, s_next):
     '''Add a redirect obstacle by blocking the next spot'''
-    
+    #TODO: Fix the redirect
     success = False
 
     if s_next != 'goal':
-        print(f's_new={s_next}')
-        row, col = stateNameToCoords(s_next)
-        if(graph.cells[row][col] == 0):
-            graph.cells[row][col] = -1
+        # print(f's_new={s_next}')
+        col, row = stateNameToCoords(s_next)
+        
+        if(graph.cells[row + 1][col] == 0):
+            graph.cells[row + 1][col] = -1
             success = True
 
         # true if obstacle was added, false if
