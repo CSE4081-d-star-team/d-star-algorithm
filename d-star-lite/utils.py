@@ -5,10 +5,9 @@ def stateNameToCoords(name):
         from x1y2 return [1, 2]
         from x5y4 return [5, 4]
     '''
-    return [
-        int(name.split('x')[1].split('y')[0]), 
-        int(name.split('x')[1].split('y')[1])
-    ]
+    row = int(name.split('x')[1].split('y')[0])
+    col = int(name.split('x')[1].split('y')[1])
+    return (row, col)
 
 def parseDims(filepath):
     '''
@@ -26,6 +25,15 @@ def parseDims(filepath):
     print(x_dim, y_dim)
     return x_dim, y_dim
 
-def add_obstacles(gridsize, ):
-    '''Return a list of obstacles to redirect the graph'''
-    return 
+def add_reroute_obstacle(graph, s_next):
+    '''Add a redirect obstacle by blocking the next spot'''
+    success = False
+    row, col = stateNameToCoords(s_next)
+    if(graph.cells[row][col] == 0):
+        graph.cells[row][col] = -1
+        success = True
+
+    # true if obstacle was added, false if
+    #  no obstacles could have been added
+    return success 
+    
