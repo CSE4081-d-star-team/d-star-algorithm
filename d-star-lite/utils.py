@@ -5,8 +5,6 @@ def stateNameToCoords(name):
         from x1y2 return [1, 2]
         from x5y4 return [5, 4]
     '''
-
-
     return [
         int(name.split('x')[1].split('y')[0]), 
         int(name.split('x')[1].split('y')[1])
@@ -27,3 +25,7 @@ def parseDims(filepath):
     
     print(x_dim, y_dim)
     return x_dim, y_dim
+
+def add_obstacles(gridsize, ):
+    '''Return a list of obstacles to redirect the graph'''
+    return 

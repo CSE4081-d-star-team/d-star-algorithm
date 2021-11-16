@@ -4,7 +4,7 @@ class Node:
         # dictionary of parent node ID's
         # key = id of parent
         # value = (edge cost,)
-        self.parents = {}
+        # self.parents = {}
         # dictionary of children node ID's
         # key = id of child
         # value = (edge cost,)
@@ -25,8 +25,8 @@ class Node:
     def __repr__(self):
         return self.__str__()
 
-    def update_parents(self, parents):
-        self.parents = parents
+    # def update_parents(self, parents):
+    #     self.parents = parents
 
 class GridWorld():
     def __init__(self, x_dim, y_dim, connect8=False, filepath=None):
@@ -115,16 +115,16 @@ class GridWorld():
                 # print('graph node ' + str(i) + ',' + str(j))
                 node = Node('x' + str(i) + 'y' + str(j))
                 if i > 0:  # not top row
-                    node.parents['x' + str(i - 1) + 'y' + str(j)] = edge
+                    # node.parents['x' + str(i - 1) + 'y' + str(j)] = edge
                     node.children['x' + str(i - 1) + 'y' + str(j)] = edge
                 if i + 1 < self.y_dim:  # not bottom row
-                    node.parents['x' + str(i + 1) + 'y' + str(j)] = edge
+                    # node.parents['x' + str(i + 1) + 'y' + str(j)] = edge
                     node.children['x' + str(i + 1) + 'y' + str(j)] = edge
                 if j > 0:  # not left col
-                    node.parents['x' + str(i) + 'y' + str(j - 1)] = edge
+                    # node.parents['x' + str(i) + 'y' + str(j - 1)] = edge
                     node.children['x' + str(i) + 'y' + str(j - 1)] = edge
                 if j + 1 < self.x_dim:  # not right col
-                    node.parents['x' + str(i) + 'y' + str(j + 1)] = edge
+                    # node.parents['x' + str(i) + 'y' + str(j + 1)] = edge
                     node.children['x' + str(i) + 'y' + str(j + 1)] = edge
 
                 # store that node in the graph

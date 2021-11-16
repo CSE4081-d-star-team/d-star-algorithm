@@ -56,12 +56,12 @@ def computeShortestPath(graph, queue, s_start, k_m):
             heapq.heappush(queue, calculateKey(graph, u, s_start, k_m) + (u,))
         elif graph.graph[u].g > graph.graph[u].rhs:
             graph.graph[u].g = graph.graph[u].rhs
-            for i in graph.graph[u].parents:
+            for i in graph.graph[u].children:
                 updateVertex(graph, queue, i, s_start, k_m)
         else:
             graph.graph[u].g = float('inf')
             updateVertex(graph, queue, u, s_start, k_m)
-            for i in graph.graph[u].parents:
+            for i in graph.graph[u].children:
                 updateVertex(graph, queue, i, s_start, k_m)
         # graph.printGValues()
 
