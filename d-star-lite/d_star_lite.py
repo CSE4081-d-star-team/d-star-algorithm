@@ -19,10 +19,11 @@ def heuristic_from_s(id, s):
 
 
 def calculate_key(grid, id, s_current, k_m):
-    return (
-        min(grid.graph[id].g, grid.graph[id].rhs) + heuristic_from_s(id, s_current) + k_m, # key 1 
-        min(grid.graph[id].g, grid.graph[id].rhs) # key 2
-    )
+    key1 = min(grid.graph[id].g, grid.graph[id].rhs) \
+            + heuristic_from_s(id, s_current) \
+            + k_m # key 1 
+    key2 = min(grid.graph[id].g, grid.graph[id].rhs) # key 2
+    return (key1, key2)
 
 
 def update_vertex(graph, queue, id, s_current, k_m):
