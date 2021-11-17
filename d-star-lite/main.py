@@ -33,7 +33,7 @@ MARGIN = 1
 
 
 # path to design grid
-filep = "/home/erud1t3/Desktop/AA-final-project/d-star-algorithm/d-star-lite/data/grid30.txt"
+filep = "/home/erud1t3/Desktop/AA-final-project/testCaseGenerator/data/grid10.txt"
 
 # Initialize pygame
 pygame.init()
@@ -92,8 +92,8 @@ if __name__ == "__main__":
     )
 
     basicfont = pygame.font.SysFont('Comic Sans MS', 15)
-    continuous_run = True # to run without stopping
-    num_reroutes = min(X_DIM // 5, 5 + 1)
+    continuous_run = False # to run without stopping
+    num_reroutes = 0 #min(X_DIM // 5, 5 + 1)
     rem_obstacles = num_reroutes
 
     # -------- Main Program Loop -----------
@@ -114,7 +114,7 @@ if __name__ == "__main__":
 
             '''adding obstacles'''
             if rem_obstacles >= 0:
-                is_success = add_reroute_obstacle(graph, s_current)
+                is_success = add_reroute_obstacle(graph, s_new)
                 if(is_success): 
                     print(f'{num_reroutes - rem_obstacles} reroute executed so far')
                     rem_obstacles -= 1
@@ -141,6 +141,12 @@ if __name__ == "__main__":
                         pos_coords = stateNameToCoords(s_current)
                         # print('got pos coords: ', pos_coords)
 
+                    if rem_obstacles >= 0:
+                        is_success = add_reroute_obstacle(graph, s_new)
+                        if(is_success): 
+                            print(f'{num_reroutes - rem_obstacles} reroute executed so far')
+                            rem_obstacles -= 1
+
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     # User clicks the mouse. Get the position
                     pos = pygame.mouse.get_pos()
@@ -153,6 +159,8 @@ if __name__ == "__main__":
                         graph.cells[row][column] = -1
                     elif(graph.cells[row][column] == -1):
                         graph.cells[row][column] = 0
+
+                
 
         # Set the screen background
         screen.fill(BLACK)

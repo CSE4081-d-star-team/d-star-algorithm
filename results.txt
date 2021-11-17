@@ -1,0 +1,2 @@
+grid of size 50 at /home/erud1t3/Desktop/AA-final-project/d-star-algorithm/d-star-lite/data/grid50.txt
+Trial 0

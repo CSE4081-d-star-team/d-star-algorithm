@@ -50,13 +50,17 @@ def add_reroute_obstacle(graph, s_current):
         # print(f's_new={s_next}')
         col, row = stateNameToCoords(s_current)
         
-        if(graph.cells[row + 2][col] == 0):
-            graph.cells[row + 2][col] = -1
+        if(graph.cells[row+1][col] == 0):
+            graph.cells[row+1][col] = -1
             success += 1
 
-        if(graph.cells[row][col + 2] == 0):
-            graph.cells[row][col + 2] = -1
-            success += 1
+        # if(graph.cells[row + 2][col] == 0):
+        #     graph.cells[row + 2][col] = -1
+        #     success += 1
+
+        # if(graph.cells[row][col + 2] == 0):
+        #     graph.cells[row][col + 2] = -1
+        #     success += 1
 
         # true if obstacle was added, false if
         #  no obstacles could have been added

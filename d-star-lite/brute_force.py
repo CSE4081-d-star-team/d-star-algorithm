@@ -27,14 +27,14 @@ class BruteForce:
         distance = 0
 
         while (result != None):
-            print("Taking Previous " + str(result.id))    
+            # print("Taking Previous " + str(result.id))    
             distance += 1
             if (result.id == current_pos):
                 break
             result = result.previous
         
         
-        print(distance)
+        # print(distance)
 
     #Look for the goal using BFS
     def breadth_first_search(self):        
@@ -54,22 +54,22 @@ class BruteForce:
         #Recursive case
         next_node = self.go_up(x, y, current_node)        #UP
         if next_node != None and not next_node.visited:
-            print(str(current_node.id) + " - Going up")
+            # print(str(current_node.id) + " - Going up")
             self.list.append(next_node)
 
         next_node = self.go_down(x, y, current_node)      #DOWN
         if next_node != None and not next_node.visited:
-            print(str(current_node.id) + " - Going down")
+            # print(str(current_node.id) + " - Going down")
             self.list.append(next_node)
 
         next_node = self.go_left(x, y, current_node)      #LEFT
         if next_node != None:
-            print(str(current_node.id) + " - Going left")
+            # print(str(current_node.id) + " - Going left")
             self.list.append(next_node)
 
         next_node = self.go_right(x, y, current_node)     #RIGHT
         if next_node != None and not next_node.visited:
-            print(str(current_node.id) + " - Going right")
+            # print(str(current_node.id) + " - Going right")
             self.list.append(next_node)
 
         return None
