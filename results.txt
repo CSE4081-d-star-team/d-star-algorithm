@@ -1,2 +1,15 @@
-grid of size 50 at /home/erud1t3/Desktop/AA-final-project/d-star-algorithm/d-star-lite/data/grid50.txt
+grid of size 50 at C:\Users\the_3\Desktop\AA\d-star-algorithm\d-star-lite\data\grid\grid50.txt
 Trial 0
+file C:\Users\the_3\Desktop\AA\d-star-algorithm\d-star-lite\data\grid\grid50.txt
+Brute Time: 4.039
+D* Lite Time: 0.149
+Trial 1
+file C:\Users\the_3\Desktop\AA\d-star-algorithm\d-star-lite\data\grid\grid50.txt
+Brute Time: 4.140
+D* Lite Time: 0.154
+Trial 2
+file C:\Users\the_3\Desktop\AA\d-star-algorithm\d-star-lite\data\grid\grid50.txt
+Brute Time: 4.003
+D* Lite Time: 0.144
+Trial 3
+file C:\Users\the_3\Desktop\AA\d-star-algorithm\d-star-lite\data\grid\grid50.txt

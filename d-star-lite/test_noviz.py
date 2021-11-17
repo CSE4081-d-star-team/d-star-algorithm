@@ -74,7 +74,7 @@ def main(gridpath, num_reroutes):
                 rem_obstacles -= 1
 
         if s_new == 'goal':
-            print('Goal Reached!')
+            # print('Goal Reached!')
             done = True
         else:
             # print('setting s_current to ', s_new)
@@ -90,21 +90,22 @@ def main(gridpath, num_reroutes):
             # pos_coords = stateNameToCoords(s_current)
             # print('got pos coords: ', pos_coords)
 
-    print(f"Brute Calc Time:{brute_time}")
-    print(f"D Star Lite Calc Time: {dstar_time}")
+    print(f"Brute Time: {brute_time:.3f}")
+    print(f"D* Lite Time: {dstar_time:.3f}")
     # print(f"Moves: {distance_traveled}")
 
 
 if __name__ == "__main__":
     # path to design grid
-    path = "/home/erud1t3/Desktop/AA-final-project/d-star-algorithm/d-star-lite/data"
-
+    path = "C:\\Users\\the_3\\Desktop\\AA\\d-star-algorithm\\d-star-lite\\data\\grid"
+    # path = "C:\\Users\\the_3\\Desktop\\AA\\d-star-algorithm\\d-star-lite\\data\\obstacles"
     
 
     # file of increasing grid sizes
     for gridsize in range(MIN_GRIDSIZE, MAX_GRIDSIZE + 1, STEP):
         # grid are always square grids
-        filepath = path + f'/grid{gridsize}.txt'
+        filepath = path + f'\\grid{gridsize}.txt'
+        # filepath = path + f'\\obs{gridsize}.txt'
         print(f'grid of size {gridsize} at {filepath}')
 
         # for num_reroute in range(min(gridsize // 5, MAX_REROUTES + 1)):
@@ -112,6 +113,6 @@ if __name__ == "__main__":
 
         for trial in range(MAX_TRIALS + 1):
             print(f'Trial {trial}')
-            main(filepath, num_reroute)
+            main(filepath, 0)
    
 

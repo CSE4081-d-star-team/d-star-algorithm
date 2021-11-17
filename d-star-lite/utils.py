@@ -22,7 +22,7 @@ def parseDims(filepath):
     x_dim -= 2
     y_dim -= 2
     
-    print(x_dim, y_dim)
+    # print(x_dim, y_dim)
     return x_dim, y_dim
 
 def add_reroute_obstacle(graph, s_current):
