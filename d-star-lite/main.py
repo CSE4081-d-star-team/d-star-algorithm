@@ -33,7 +33,7 @@ MARGIN = 1
 
 
 # path to design grid
-filep = "C:\\Users\\the_3\\Desktop\\AA\\d-star-algorithm\\d-star-lite\\data\\grid30.txt"
+filep = "/home/erud1t3/Desktop/AA-final-project/d-star-algorithm/d-star-lite/data/grid30.txt"
 
 # Initialize pygame
 pygame.init()

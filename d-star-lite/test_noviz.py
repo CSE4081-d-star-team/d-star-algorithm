@@ -5,17 +5,21 @@ from utils import stateNameToCoords, parseDims, add_reroute_obstacle
 from d_star_lite import init_dstarlite, move_and_rescan
 from brute_force import BruteForce
 # import random
+import timeit
 
 
 #Testing parameters
 MAX_TRIALS = 6
-MAX_REROUTES = 5 # 0-9
-MAX_GRIDSIZE = 20
+MAX_REROUTES = 0 # 0-9
+MAX_GRIDSIZE = 100
 MIN_GRIDSIZE = 5
-STEP = 4
+STEP = 5
 
 
 def main(gridpath, num_reroutes):
+    dstar_time = 0
+    brute_time = 0
+    distance_traveled = 0
 
     # X_DIM, Y_DIM = 32, 32
     X_DIM, Y_DIM = parseDims(gridpath) # reads dynamically the size of the grid
@@ -39,7 +43,13 @@ def main(gridpath, num_reroutes):
     # s_last = s_start
     pqueue = []
 
+    t0 = timeit.default_timer()
     graph, pqueue, k_m = init_dstarlite(graph, pqueue, s_start, s_goal, k_m)
+    t1 = timeit.default_timer()
+    dstar_time += t1 - t0
+    print(f"D star init: {dstar_time}")
+
+    
     s_current = s_start
     # pos_coords = stateNameToCoords(s_current)
 
@@ -50,7 +60,11 @@ def main(gridpath, num_reroutes):
     while not done: 
 
         # move the agent with new position to go to and new k_m | actual d-star lite pathfinding
+        t0 = timeit.default_timer()
         s_new, k_m = move_and_rescan(graph, pqueue, s_current, VIEWING_RANGE, k_m)
+        t1 = timeit.default_timer()
+        dstar_time += t1 - t0
+        print(f"Move and Rescan: {t1 - t0}")
 
         '''adding obstacles'''
         if rem_obstacles >= 0:
@@ -64,15 +78,28 @@ def main(gridpath, num_reroutes):
             done = True
         else:
             print('setting s_current to ', s_new)
+
+            brute = BruteForce()
+            t0 = timeit.default_timer()
+            brute.find_path(graph, s_new)
+            t1 = timeit.default_timer()
+            brute_time += t1 - t0
+            print(f"brute find path: {t1 - t0}")
             # if the goal is not reached, updated current to new
             s_current = s_new
             # pos_coords = stateNameToCoords(s_current)
             # print('got pos coords: ', pos_coords)
 
+    print(f"Brute Calc Time:{brute_time}")
+    print(f"D Star Lite Calc Time: {dstar_time}")
+    print(f"Moves: {distance_traveled}")
+
 
 if __name__ == "__main__":
     # path to design grid
     path = "C:\\Users\\the_3\\Desktop\\AA\\d-star-algorithm\\d-star-lite\\data"
+
+    
 
     # file of increasing grid sizes
     for gridsize in range(MIN_GRIDSIZE, MAX_GRIDSIZE + 1, STEP):
