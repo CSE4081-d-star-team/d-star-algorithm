@@ -5,7 +5,7 @@ from d_star_lite import init_dstarlite, move_and_rescan
 from brute_force import BruteForce
 import random
 
-# Define some colors 
+# Define some colors
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
@@ -33,7 +33,7 @@ MARGIN = 1
 
 
 # path to design grid
-filep = "/home/erud1t3/Desktop/AA-final-project/testCaseGenerator/data/grid10.txt"
+filep = "/home/tony/Desktop/testCaseGenerator/data/test1.txt"
 
 # Initialize pygame
 pygame.init()
@@ -85,8 +85,8 @@ if __name__ == "__main__":
 
     # draw start in blue
     pygame.draw.rect(
-        screen, 
-        GRAY2, 
+        screen,
+        GRAY2,
         [(MARGIN + WIDTH) * pos_coords[0] + MARGIN,
         (MARGIN + HEIGHT) * pos_coords[1] + MARGIN, WIDTH, HEIGHT]
     )
@@ -97,8 +97,8 @@ if __name__ == "__main__":
     rem_obstacles = num_reroutes
 
     # -------- Main Program Loop -----------
-    while not done: 
-        if continuous_run: 
+    while not done:
+        if continuous_run:
             # move the agent with new position to go to and new k_m | actual d-star lite pathfinding
             s_new, k_m = move_and_rescan(graph, pqueue, s_current, VIEWING_RANGE, k_m)
 
@@ -115,7 +115,7 @@ if __name__ == "__main__":
             '''adding obstacles'''
             if rem_obstacles >= 0:
                 is_success = add_reroute_obstacle(graph, s_new)
-                if(is_success): 
+                if(is_success):
                     print(f'{num_reroutes - rem_obstacles} reroute executed so far')
                     rem_obstacles -= 1
 
@@ -127,8 +127,8 @@ if __name__ == "__main__":
                     print('space bar! call next action')
 
                     # move the agent with new position to go to and new k_m | actual d-star lite pathfinding
-                    s_new, k_m = move_and_rescan(graph, pqueue, s_current, VIEWING_RANGE, k_m)  
-                    
+                    s_new, k_m = move_and_rescan(graph, pqueue, s_current, VIEWING_RANGE, k_m)
+
                     if s_new == 'goal':
                         print('Goal Reached!')
                         done = True
@@ -143,7 +143,7 @@ if __name__ == "__main__":
 
                     if rem_obstacles >= 0:
                         is_success = add_reroute_obstacle(graph, s_new)
-                        if(is_success): 
+                        if(is_success):
                             print(f'{num_reroutes - rem_obstacles} reroute executed so far')
                             rem_obstacles -= 1
 
@@ -160,7 +160,7 @@ if __name__ == "__main__":
                     elif(graph.cells[row][column] == -1):
                         graph.cells[row][column] = 0
 
-                
+
 
         # Set the screen background
         screen.fill(BLACK)
@@ -172,7 +172,7 @@ if __name__ == "__main__":
                 # if grid[row][column] == 1:
                 #     color = GREEN
                 pygame.draw.rect(
-                    screen, 
+                    screen,
                     colors[graph.cells[row][column]],
                     [(MARGIN + WIDTH) * column + MARGIN,
                     (MARGIN + HEIGHT) * row + MARGIN, WIDTH, HEIGHT]
@@ -192,29 +192,29 @@ if __name__ == "__main__":
 
         # fill in goal cell with GREEN
         pygame.draw.rect(
-            screen, 
-            GREEN, 
+            screen,
+            GREEN,
             [(MARGIN + WIDTH) * goal_coords[0] + MARGIN,
             (MARGIN + HEIGHT) * goal_coords[1] + MARGIN, WIDTH, HEIGHT]
         )
         # print('drawing robot pos_coords: ', pos_coords)
         # draw moving robot, based on pos_coords
         robot_center = [
-            int(pos_coords[0] * (WIDTH + MARGIN) + WIDTH / 2) + MARGIN, 
+            int(pos_coords[0] * (WIDTH + MARGIN) + WIDTH / 2) + MARGIN,
             int(pos_coords[1] * (HEIGHT + MARGIN) + HEIGHT / 2) + MARGIN
         ]
         pygame.draw.circle(screen, RED, robot_center, int(WIDTH / 2) - 2)
 
         # draw robot viewing range
         pygame.draw.rect(
-            screen, 
-            BLUE, 
+            screen,
+            BLUE,
             [
-                robot_center[0] - VIEWING_RANGE * (WIDTH + MARGIN), 
-                robot_center[1] - VIEWING_RANGE * (HEIGHT + MARGIN), 
-                2 * VIEWING_RANGE * (WIDTH + MARGIN), 
+                robot_center[0] - VIEWING_RANGE * (WIDTH + MARGIN),
+                robot_center[1] - VIEWING_RANGE * (HEIGHT + MARGIN),
+                2 * VIEWING_RANGE * (WIDTH + MARGIN),
                 2 * VIEWING_RANGE * (HEIGHT + MARGIN)
-            ], 
+            ],
             2
         )
 

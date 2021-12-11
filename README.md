@@ -19,13 +19,6 @@
 
 
 <!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <a href="https://github.com/CSE4081-d-star-team/d-star-algorithm/">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
-
-
 </br>
 
 <h3 align="center">D * Lite algorithm with GUI</h3>
@@ -34,6 +27,8 @@
     Advanced path finding algorithm
     <br />
     <br />
+    <a href="https://docs.google.com/document/d/e/2PACX-1vQnl_IcjbdYZ-aUlzHfJQR7w4WXKI8e8FXBRkV2JTDOp6I1mQLMe_ISi1_Bb0B0j8ShaLUqLzaQn3fl/pub">Document Report</a>
+    ·
     <a href="https://github.com/CSE4081-d-star-team/d-star-algorithm">View Demo</a>
     ·
     <a href="https://github.com/CSE4081-d-star-team/d-star-algorithm/issues">Report Bug</a>
@@ -44,11 +39,16 @@
 
 </br>
 </br>
+<div align="center">
+  <a href="https://github.com/CSE4081-d-star-team/d-star-algorithm/">
+    <img src="img/dstar.gif" alt="Logo" width="400" height="400">
+  </a>
+</div>
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Simulation for dynamic and heuristic shortest path finder. 
+Simulation for dynamic and heuristic shortest path finder.
 
 There are currently 5 features implemented.
 
@@ -68,34 +68,12 @@ There are currently 5 features implemented.
 * [Python 3.8+](https://www.python.org/)
 
 </br>
-</br>
 
 <!-- GETTING STARTED -->
 ## How to run?
 
 In oder to execute the program, please download the file by cloning this repository.
 
-</br>
-
-### Prerequisites
-
-First, python program is required
-
-* In command prompt type
-  ```sh
-  python3
-  ```
-
-### Installation
-
-
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-
-
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 <!-- LICENSE -->
@@ -103,7 +81,6 @@ First, python program is required
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
