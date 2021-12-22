@@ -98,8 +98,6 @@ Project Link: [https://github.com/CSE4081-d-star-team/d-star-algorithm](https://
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/CSE4081-d-star-team/d-star-algorithm.svg?style=for-the-badge
 [contributors-url]: https://github.com/CSE4081-d-star-team/d-star-algorithm/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/CSE4081-d-star-team/d-star-algorithm.svg?style=for-the-badge
-[forks-url]: https://github.com/CSE4081-d-star-team/d-star-algorithm/network/members
 [stars-shield]: https://img.shields.io/github/stars/CSE4081-d-star-team/d-star-algorithm.svg?style=for-the-badge
 [stars-url]: https://github.com/CSE4081-d-star-team/d-star-algorithm/stargazers
 [issues-shield]: https://img.shields.io/github/issues/CSE4081-d-star-team/d-star-algorithm.svg?style=for-the-badge
